@@ -18,7 +18,7 @@ before_deploy:
     # Set up git user name and tag this commit
     - git config --local user.name "YOUR GIT USER NAME"
     - git config --local user.email "YOUR GIT USER EMAIL"
-    - export TRAVIS_TAG=${TRAVIS_TAG:-$(git rev-parse --abbrev-ref HEAD)-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+    - export TRAVIS_TAG=${TRAVIS_TAG:-$TRAVIS_BRANCH-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
     - git tag $TRAVIS_TAG
 
 
