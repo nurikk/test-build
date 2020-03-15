@@ -26,7 +26,7 @@ deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
   file_glob: true
-  file: /tmp/build/.pio/build/*
+  file: /tmp/build/.pio/build/**/*
   skip_cleanup: true
   repo: nurikk/test-releases
   on:
