@@ -1,0 +1,25 @@
+language: python
+python:
+    - "2.7"
+
+sudo: false
+cache:
+    directories:
+        - "~/.platformio"
+
+install:
+    - pip install -U platformio
+    - platformio update
+
+script:
+    - mkdir /tmp/build
+    - platformio ci --project-conf platformio.ini --build-dir="/tmp/build" --keep-build-dir .
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: /tmp/build/.pio/build/*
+  skip_cleanup: true
+  on:
+    tags: true
