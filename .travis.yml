@@ -23,13 +23,22 @@ before_deploy:
 
 
 deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file_glob: true
-  file: /tmp/build/.pio/build/**/*.bin
-  skip_cleanup: true
-  repo: nurikk/test-releases
-  target_commitish: $TRAVIS_BRANCH
-  on:
-    all_branches: true
-    condition: $TRAVIS_BRANCH =~ ^(master|staging|production|dev)$
+  -
+    provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: /tmp/build/.pio/build/**/*.bin
+    skip_cleanup: true
+    repo: nurikk/test-releases
+    on:
+       branch: master
+  -
+    provider: releases
+    api_key: $GITHUB_TOKEN
+    file_glob: true
+    file: /tmp/build/.pio/build/**/*.bin
+    skip_cleanup: true
+    repo: nurikk/test-releases
+    prerelease: true
+    on:
+       branch: dev
