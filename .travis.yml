@@ -14,12 +14,12 @@ install:
 script:
     - mkdir /tmp/build
     - platformio ci --project-conf platformio.ini --build-dir="/tmp/build" --keep-build-dir .
-before_deploy:
-    # Set up git user name and tag this commit
-    - git config --local user.name "YOUR GIT USER NAME"
-    - git config --local user.email "YOUR GIT USER EMAIL"
-    - export TRAVIS_TAG=${TRAVIS_TAG:-$TRAVIS_BRANCH-$(date +'%Y%m%d')-$(git log --format=%h -1)}
-    - git tag $TRAVIS_TAG
+# before_deploy:
+#     # Set up git user name and tag this commit
+#     - git config --local user.name "YOUR GIT USER NAME"
+#     - git config --local user.email "YOUR GIT USER EMAIL"
+#     - export TRAVIS_TAG=${TRAVIS_TAG:-$TRAVIS_BRANCH-$(date +'%Y%m%d')-$(git log --format=%h -1)}
+#     - git tag $TRAVIS_TAG
 
 
 deploy:
@@ -31,14 +31,4 @@ deploy:
     skip_cleanup: true
     repo: nurikk/test-releases
     on:
-       branch: master
-  -
-    provider: releases
-    api_key: $GITHUB_TOKEN
-    file_glob: true
-    file: /tmp/build/.pio/build/**/*.bin
-    skip_cleanup: true
-    repo: nurikk/test-releases
-    prerelease: true
-    on:
-       branch: dev
+      tags: true
